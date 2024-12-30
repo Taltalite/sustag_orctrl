@@ -75,3 +75,43 @@ def torch_data_loader_pickle_wo0(input_pickle_file, batch_size, val_rate, total_
     val_loader = DataLoader(dataset=val_dataset, batch_size=batch_size, num_workers=8)
 
     return train_loader, val_loader
+
+def torch_data_loader_pickle_test(input_pickle_file, n_classes, batch_size, val_rate, is_shuffle=True):
+    df = open(input_pickle_file, 'rb')
+    DATA = pickle.load(df)
+    df.close()
+    X = DATA['x_val']
+    Y = DATA['y_val']
+    if is_shuffle:
+        randomize = np.arange(len(X))
+        np.random.shuffle(randomize)
+        X = X[randomize]
+        Y = Y[randomize]
+    
+    Y = Y.squeeze()
+    
+    x_test = np.array(X,dtype=np.float32)
+    y_test = np.array(Y,dtype=int)
+    
+    # reset label range from [1, 96] to [0, 95]
+    y_test = y_test - 1
+
+    print('test shape x:')
+    print(x_test.shape)
+    print('test shape y:')
+    print(y_test.shape)
+
+    print('test: ',len(np.unique(y_test)))
+
+    x_test = torch.from_numpy(x_test)
+    y_test = torch.from_numpy(y_test)
+
+    # ont_hot_train = torch.zeros(y_test.shape[0], n_classes).scatter(1,y_test,1)
+
+    # test_dataset = TensorDataset(x_test, ont_hot_train)
+    
+    test_dataset = TensorDataset(x_test, y_test)
+
+    test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, num_workers=4)
+
+    return test_loader
