@@ -25,7 +25,7 @@ class CNNBlock(nn.Module):
 
         self.dropout = nn.Dropout(dropout_rate)
     
-    def forward(self, x):
+    def forward(self, x): 
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv1_bn(x))
         x = F.relu(self.conv2(x))
@@ -74,16 +74,13 @@ class CNN_LSTM(nn.Module):
         self.dropout = nn.Dropout(p=self.dropout_rate)
     
     def forward(self, x):
-        #cnn takes input of shape (batch_size, channels, seq_len)
-        # x = x.permute(0, 2, 1)
+        # cnn takes input of shape (batch_size, channels, seq_len)
         cnn_out = self.cnn(x)
-        # lstm takes input of shape (batch_size, seq_len, input_size)
         lstm_in = cnn_out.permute(0, 2 ,1)
         lstm_out = self.lstm(lstm_in)
         x = self.flatten(lstm_out)
         x = self.dropout(x)
         x = self.mlp(x)
-        # x = self.mlp(lstm_out)
         return x
 
 

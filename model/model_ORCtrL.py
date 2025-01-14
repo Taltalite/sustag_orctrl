@@ -53,9 +53,9 @@ class LSTMBlock(nn.Module):
 
 
 
-class CNN_LSTM(nn.Module):
+class CNN_LSTM_Backbone(nn.Module):
     def __init__(self, num_class, dropout_rate, hidden_size):
-        super(CNN_LSTM, self).__init__()
+        super(CNN_LSTM_Backbone, self).__init__()
         self.dropout_rate = dropout_rate
         self.num_class = num_class
         self.cnn = CNNBlock(self.dropout_rate)
@@ -70,19 +70,14 @@ class CNN_LSTM(nn.Module):
         # features = features[:, -1, :]
         return features
 
-class SelectiveNet(torch.nn.Module):
-    """
-    SelectiveNet for classification with rejection option.
-    In the experiments of original papaer, variant of VGG-16 is used as body block for feature extraction.  
-    """
+class OPRNet(torch.nn.Module):
     def __init__(self, features, dim_features:int, num_classes:int, dropout_rate=0.2, init_weights=False):
         """
         Args
-            features: feature extractor network (called body block in the paper).
-            dim_featues: dimension of feature from body block.  
-            num_classes: number of classification class.
+            features: feature extractor network (CNN_LSTM in this work).
+            dim_featues: hidden dimensions.  
         """
-        super(SelectiveNet, self).__init__()
+        super(OPRNet, self).__init__()
         self.features = features
         self.dim_features = dim_features
         self.num_classes = num_classes
@@ -115,20 +110,13 @@ class SelectiveNet(torch.nn.Module):
             LambdaLayer(),
             nn.Linear(self.base_dim, 1),
             nn.Sigmoid()
-            # torch.nn.Linear(self.dim_features, self.dim_features),
-            # torch.nn.ReLU(True),
-            # torch.nn.BatchNorm1d(self.dim_features),
-            # torch.nn.Linear(self.dim_features, 1),
-            # torch.nn.Sigmoid()
         )
 
         # represented as h() in the original paper
         self.aux_classifier = torch.nn.Sequential(
             torch.nn.Linear(self.base_dim, self.num_classes),
-            # nn.Softmax(dim=1)
         )
 
-        # initialize weights of heads
         if init_weights:
             self._initialize_weights(self.classifier)
             self._initialize_weights(self.selector)
@@ -160,13 +148,6 @@ class SelectiveNet(torch.nn.Module):
 
 class SelectiveLoss(torch.nn.Module):
     def __init__(self, loss_func, coverage:float, num_classes:int, lm:float=32.0):
-        """
-        Args:
-            loss_func: base loss function. the shape of loss_func(x, target) shoud be (B). 
-                       e.g.) torch.nn.CrossEntropyLoss(reduction=none) : classification
-            coverage: target coverage.
-            lm: Lagrange multiplier for coverage constraint. original experiment's value is 32. 
-        """
         super(SelectiveLoss, self).__init__()
         assert 0.0 < coverage <= 1.0
         assert 0.0 < lm
@@ -178,13 +159,7 @@ class SelectiveLoss(torch.nn.Module):
         self.lamda = lm
 
     def forward_bak(self, prediction_out, selection_out, target, threshold=0.5):
-        """
-        Args:
-            prediction_out: (B,num_classes)
-            selection_out:  (B, 1)
-        """
-        # compute emprical coverage (=phi^)
-        # emprical_coverage = selection_out.mean()
+
         count_above_threshold = torch.sum(selection_out > threshold).item()
         total_count = selection_out.shape[0]
         emprical_coverage = torch.tensor(count_above_threshold / total_count)
@@ -243,8 +218,8 @@ if __name__ == '__main__':
     num_class = 97
     dropout_rate = 0.3
     hidden_dim = 256
-    features = CNN_LSTM(num_class, dropout_rate, hidden_dim)
+    features = CNN_LSTM_Backbone(num_class, dropout_rate, hidden_dim)
     
-    model = SelectiveNet(features, 79 * 256, num_class)
+    model = OPRNet(features, 79 * 256, num_class)
     
     summary(model, input_size=(batch_size, 1, 3000))
