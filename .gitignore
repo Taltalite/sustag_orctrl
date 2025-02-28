@@ -1,3 +1,5 @@
+/data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -125,6 +127,7 @@ dmypy.json
 # Logs
 *.log
 log/*
+*.txt
 
 # PyTorch
 *.pth

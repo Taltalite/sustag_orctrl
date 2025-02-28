@@ -170,12 +170,10 @@ def process_hdf5(inputpath, out_path, split_file_list, TOTAL: mp.Value, lock_4_t
 
 if __name__ == "__main__":
     input_guppyfast5_paths = [
-        r'/data/biolab-nvme-pool1/lijy/SUSTag_data/guppy_basecalled/20220427_barcode_34h/workspace/',
-	r'/data/biolab-nvme-pool1/lijy/SUSTag_data/guppy_basecalled/20220306_server_sup/workspace/',	
-	r'/data/biolab-nvme-pool1/lijy/SUSTag_data/guppy_basecalled/20230321_addbarcode_3h_sup/workspace/'
+        r'/data/biolab-nvme-pool1/lijy/sustag_orctrl/guppy_basecalled/20220427_barcode_34h/workspace/',      # Guppy fast5 dir
 	     ]
     
-    input_dic_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/barcode_mix_paf_readsdic_all_mapont.P'
+    input_dic_file = r'/data/biolab-nvme-pool1/lijy/sustag_orctrl/barcode_mix_paf_readsdic_all_mapont.P'     # read dictionary file
 
     df = open(input_dic_file, 'rb')
     reads_dic = pickle.load(df)
@@ -184,7 +182,7 @@ if __name__ == "__main__":
     balance_min = 2000
     balance_max = 4000
 
-    out_path = f'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d{num_sampling_sigals}masked_max{balance_max}/'
+    out_path = f'/data/biolab-nvme-pool1/lijy/sustag_orctrl/seq96_1d{num_sampling_sigals}masked_max{balance_max}/'  # output path
     if not os.path.exists(out_path):
         os.makedirs(out_path)
 

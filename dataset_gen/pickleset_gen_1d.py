@@ -80,8 +80,8 @@ def process_hdf5(file_list: List, shared_X: mp.Manager().list, shared_Y: mp.Mana
 if __name__ == '__main__':
 
     # max_unclassified = 50000
-    # max_unclassified = 10000 # about 1% unclassified for 1M data
-    max_unclassified = 0
+    max_unclassified = 10000 # about 1% unclassified for 1M data
+    # max_unclassified = 0
     
     total_rate = 1.0
     test_rate = 0.1
@@ -89,12 +89,8 @@ if __name__ == '__main__':
     # filted_list = [9,18,19,35,55,69,99,130,151,180,247,291,306,343,375,394] # start from 1 sustag384
     # filted_list = []
 
-    input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq384_1d1500masked/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/ONT_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/Porcupine_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/DNA_storage_data/1d3000/barcode_all_1d3000_100_full/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/DNA_storage_data/1d3000/sustseqd_all_1d1500_100_max4000/'
+    input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/sustag_orctrl/1d3000/seq96_1d3000masked_max4000/'
+
     
     is_binary = False
     print('dataset: ', input_rawspec_path)
