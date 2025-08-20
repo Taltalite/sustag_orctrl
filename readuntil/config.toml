@@ -1,0 +1,59 @@
+[general]
+# [General Settings]
+
+# throttle: The number of seconds the main loop waits after each fetch of data from MinKNOW.
+throttle = 0.01
+
+analysis_workers = 4
+
+# queue_size: The maximum capacity of each queue in the pipeline.
+# If the analysis speed cannot keep up with the data generation speed, this queue can serve as a buffer.
+queue_size = 2000
+
+
+# ==============================================================================
+[actions]
+# [Decision-making and execution settings]
+
+# unblock_duration: The duration (in seconds) of reverse voltage application when performing an "unblock" operation.
+# 0.1 seconds is a value commonly used by the ONT community.
+unblock_duration = 0.1
+
+# If set to true, all "unblock" instructions will be replaced with "stop_receiving" (i.e. keep the read).
+non_unblock = false
+
+
+[acquisition]
+# The maximum number of lost points of the read start signal that can be tolerated. If the number of lost points exceeds this value,
+# The read will be discarded and not used for decision making. 100 is a strict and reasonable value.
+max_missed_start_offset = 100
+
+# ==============================================================================
+[analysis]
+# [Core analysis logic settings]
+
+# model_path: The path to the deep learning model file.
+model_path = "../checkpoints/ORCtrL/ORCovL_sustag384_1d1500_ckpt_e60_b1024_ft200k_c95_basec95_finetuning.pth"
+
+target_class_labels = [29,30,31,32,33,34,35,36,37,38,39,40,41,42] 
+
+# confidence_threshold: You can require that the confidence level of a prediction must be above this threshold to be considered a valid target.
+confidence_threshold = 0.7
+
+# min_signal_length: You can require that the original signal used for analysis must be of a minimum length.
+# This filters out signal segments that are too short to make a reliable judgment.
+min_signal_length = 1500
+sample_start_pos = 0
+
+is_data_norm = false
+
+analysis_queue_timeout = 3
+
+decision_queue_timeout = 3
+
+[simulation]
+# [Simulation Settings]
+
+# fast5_directory: Path to the directory containing the .fast5 files used for simulation.
+# The script will scan this directory and load the raw signal data from all fast5 files.
+fast5_directory = "./test_fast5/"
