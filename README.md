@@ -139,4 +139,12 @@ To perform a real-time "Read Until" experiment, follow these steps:
 > **Disclaimer:** Some research suggests that modifying this parameter should be done in conjunction with other settings (e.g., `rules_in_execution_order`). We have not deeply investigated these interactions. Therefore, our recommended change is primarily suited for demonstration purposes and may not be optimal for all experimental conditions.
 
 
+## License
 
+This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)**.
+
+You can find the full text of the license in the [LICENSE](https://www.google.com/search?q=LICENSE) file at the root of this repository.
+
+### A Note on Project Components
+
+The `readuntil/readuntil_api` directory contains code that is a modification of a pre-existing project which is also licensed under MPL-2.0. To maintain compliance and simplify the overall licensing for `sustag_orctrl`, we have chosen to license the entire project under the MPL-2.0.
