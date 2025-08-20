@@ -33,7 +33,7 @@ max_missed_start_offset = 100
 # [Core analysis logic settings]
 
 # model_path: The path to the deep learning model file.
-model_path = "../checkpoints/ORCtrL/ORCovL_sustag384_1d1500_ckpt_e60_b1024_ft200k_c95_basec95_finetuning.pth"
+model_path = "../checkpoints/ORCtrL/ORCtrL_sustag384_1d1500_ckpt_e60_b1024_ft200k_c95_basec95_finetuning.pth"
 
 target_class_labels = [29,30,31,32,33,34,35,36,37,38,39,40,41,42] 
 

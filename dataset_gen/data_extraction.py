@@ -182,11 +182,10 @@ if __name__ == "__main__":
     balance_min = 2000
     balance_max = 4000
 
-    out_path = f'/data/biolab-nvme-pool1/lijy/sustag_orctrl/seq96_1d{num_sampling_sigals}masked_max{balance_max}/'  # output path
+    out_path = f'/data/biolab-nvme-pool1/lijy/sustag_orctrl/sustag96_1d{num_sampling_sigals}masked_max{balance_max}/'  # output path
     if not os.path.exists(out_path):
         os.makedirs(out_path)
 
-    # 创建一个多进程池
     num_processes = 10
     num_class = 101
 

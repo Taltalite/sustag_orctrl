@@ -130,7 +130,7 @@ log/*
 *.txt
 
 # PyTorch
-*.pth
+# *.pth
 
 # Miscellaneous
 tags

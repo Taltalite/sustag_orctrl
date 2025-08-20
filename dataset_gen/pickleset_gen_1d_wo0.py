@@ -70,25 +70,20 @@ if __name__ == '__main__':
     total_rate = 1.0
     test_rate = 0.1
     filted_list = [55, 31, 39, 32] # start from 1 sustag96
-    # filted_list = [9,18,19,35,55,69,99,130,151,180,247,291,306,343,375,394] # start from 1 sustag384
-    # filted_list = []
 
-    input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq384_1d1500masked/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/ONT_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/Porcupine_1d3000masked_max4000/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/DNA_storage_data/1d3000/barcode_all_1d3000_100_full/'
-    # input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/DNA_storage_data/1d3000/sustseqd_all_1d1500_100_max4000/'
+
+    input_rawdata_path = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/'
+
     
-    print('dataset: ', input_rawspec_path)
+    print('dataset: ', input_rawdata_path)
 
-    out_path = input_rawspec_path+'/train_set/'
+    out_path = input_rawdata_path+'/train_set/'
 
     if not os.path.exists(out_path):
         os.makedirs(out_path)
     
 
-    file_raw_list = [os.path.join(input_rawspec_path, filename) for filename in os.listdir(input_rawspec_path) if filename.endswith('.hdf5')]
+    file_raw_list = [os.path.join(input_rawdata_path, filename) for filename in os.listdir(input_rawdata_path) if filename.endswith('.hdf5')]
 
     random.shuffle(file_raw_list)
     file_raw_list = file_raw_list[:int(len(file_raw_list)*total_rate)]
@@ -145,11 +140,7 @@ if __name__ == '__main__':
         np.random.shuffle(randomize)
         X = X[randomize]
         Y = Y[randomize]
-    # n_max = int(len(X)*total_rate)
-    # X = X[:n_max]
-    # Y = Y[:n_max]
-        
-    # print(np.unique(Y))
+
     print(len(np.unique(Y)))
     
     x_train = np.array(X[int(len(X)*test_rate):],dtype=np.float32)
@@ -161,9 +152,7 @@ if __name__ == '__main__':
 
     print('train: ',len(np.unique(y_train)))
     print('test: ',len(np.unique(y_test)))
-        
-    #     x_train = x_train.reshape((x_train.shape[0],x_train.shape[1],x_train.shape[2],1))
-    #     x_test = x_test.reshape((x_test.shape[0],x_test.shape[1],x_test.shape[2],1))
+
 
     print('x_train shape: ', x_train.shape)
     print('y_train shape: ', y_train.shape)

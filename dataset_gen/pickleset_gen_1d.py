@@ -86,22 +86,20 @@ if __name__ == '__main__':
     total_rate = 1.0
     test_rate = 0.1
     filted_list = [55, 31, 39, 32] # start from 1 sustag96
-    # filted_list = [9,18,19,35,55,69,99,130,151,180,247,291,306,343,375,394] # start from 1 sustag384
-    # filted_list = []
 
-    input_rawspec_path = r'/data/biolab-nvme-pool1/lijy/sustag_orctrl/1d3000/seq96_1d3000masked_max4000/'
+    input_rawdata_path = r'/data/biolab-nvme-pool1/lijy/sustag_orctrl/1d3000/seq96_1d3000masked_max4000/'
 
     
     is_binary = False
-    print('dataset: ', input_rawspec_path)
+    print('dataset: ', input_rawdata_path)
 
-    out_path = input_rawspec_path+'/train_set/'
+    out_path = input_rawdata_path+'/train_set/'
 
     if not os.path.exists(out_path):
         os.makedirs(out_path)
     
 
-    file_raw_list = [os.path.join(input_rawspec_path, filename) for filename in os.listdir(input_rawspec_path) if filename.endswith('.hdf5')]
+    file_raw_list = [os.path.join(input_rawdata_path, filename) for filename in os.listdir(input_rawdata_path) if filename.endswith('.hdf5')]
 
     random.shuffle(file_raw_list)
     file_raw_list = file_raw_list[:int(len(file_raw_list)*total_rate)]
