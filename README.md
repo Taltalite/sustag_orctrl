@@ -69,7 +69,6 @@ In the terminal interface or log file, you will see output similar to this, indi
 2025-08-20 17:46:02,583 - INFO - Data reporting interval: 0.0114 sec. (This batch contains 11 reads)
 ```
 
-Of course. Here is the "Usage" section for your technical documentation, written in English and formatted in Markdown as requested.
 
 -----
 
@@ -82,6 +81,8 @@ This section details how to use the `sustag_orctrl` project, from acquiring data
 We have prepared a sample dataset for demonstration and testing purposes. You can download it from the following link:
 
 [https://mirrors.sustech.edu.cn/site/datasets-share/sustag\_orctrl/](https://mirrors.sustech.edu.cn/site/datasets-share/sustag_orctrl/)
+
+In addition, you can see the file tree structure of the dataset in ```sustag_data.md```
 
 ### 2\. Generating a Custom Dataset
 
@@ -113,7 +114,7 @@ The `train/` directory contains scripts for training the different neural networ
 
 ### 4\. Real-time Adaptive Sampling
 
-Our real-time adaptive sampling capability is built upon the `readuntil_api`, with modifications inspired by the [WarpDemuX](https://github.com/KleistLab/WarpDemuX) project. We have further updated the code to ensure compatibility with the modern **MinKNOW API v6.4.3**.
+Our real-time adaptive sampling capability is built upon the `readuntil_api`, with modifications inspired by the [WarpDemuX](https://github.com/KleistLab/WarpDemuX) project. We have further updated the code to ensure compatibility with the version 6.x of ```minknow_api``` (The version applied for this project is v6.4.3).
 
 To perform a real-time "Read Until" experiment, follow these steps:
 
