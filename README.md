@@ -1,4 +1,6 @@
-# sustag_orctrl
+# SUSTag_ORCtrL
+
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 We introduce SUSTag-ORCtrL that uses raw ionic current signatures of DNA tags for demultiplexing into 96 or 384 classes. Our system, involving a Bhattacharyya distance and incremental clustering enhanced molecular tag design (SUSTag), an optional-reject CNN-LSTM deep learning model, and a transfer-learning pipeline (ORCtrL), minimizes crosstalk for random access.
 
@@ -76,7 +78,7 @@ In the terminal interface or log file, you will see output similar to this, indi
 
 This section details how to use the `sustag_orctrl` project, from acquiring data to performing real-time analysis.
 
-### 1\. Dataset Download
+### Dataset Download
 
 We have prepared a sample dataset for demonstration and testing purposes. You can download it from the following link:
 
@@ -84,7 +86,7 @@ We have prepared a sample dataset for demonstration and testing purposes. You ca
 
 In addition, you can see the file tree structure of the dataset in ```sustag_data.md```
 
-### 2\. Generating a Custom Dataset
+### Generating a Custom Dataset
 
 If you want to use your own sequencing data, follow this pipeline to generate a dataset compatible with our training scripts.
 
@@ -108,11 +110,11 @@ If you want to use your own sequencing data, follow this pipeline to generate a 
 
     Finally, run `dataset_gen/pickleset_gen_1d.py` on the extracted data. This will package the raw signals and corresponding labels into a single `.pickle` file, which is the final format required for training the models.
 
-### 3\. Model Training
+### Model Training
 
 The `train/` directory contains scripts for training the different neural network architectures used in this project (e.g., `train_CNN.py`, `train_CNNLSTM.py`, `train_ORCtrL.py`). You can execute the appropriate script to train a model on the dataset you have prepared.
 
-### 4\. Real-time Adaptive Sampling
+### Real-time Adaptive Sampling
 
 Our real-time adaptive sampling capability is built upon the `readuntil_api`, with modifications inspired by the [WarpDemuX](https://github.com/KleistLab/WarpDemuX) project. We have further updated the code to ensure compatibility with the version 6.x of ```minknow_api``` (The version applied for this project is v6.4.3).
 
@@ -144,7 +146,7 @@ To perform a real-time "Read Until" experiment, follow these steps:
 
 This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)**.
 
-You can find the full text of the license in the [LICENSE](https://www.google.com/search?q=LICENSE) file at the root of this repository.
+You can find the full text of the license in the [LICENSE](https://github.com/Taltalite/sustag_orctrl/blob/main/LICENSE) file.
 
 ### A Note on Project Components
 
