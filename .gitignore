@@ -142,3 +142,7 @@ tags
 *.exe
 *.out
 *.o
+
+# pickle 
+*.P
+*.pickle
