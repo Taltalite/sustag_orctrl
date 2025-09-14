@@ -37,7 +37,11 @@ Before you begin, please ensure you have a compatible Python environment set up.
       * Select your preferences (OS, Package, Compute Platform).
       * Run the generated command.
 
-    For example, a typical command for installing PyTorch with CUDA 11.8 support via pip would look like this (**do not run this command without verifying it on the PyTorch website**):
+    For example, a typical command for installing PyTorch with CUDA 12.6 support via pip would look like this (**do not run this command without verifying it on the PyTorch website**):
+
+    ```bash
+    pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+    ```
 
 ## Quick Start
 

@@ -18,15 +18,17 @@ from sklearn import metrics
 from matplotlib.colors import LinearSegmentedColormap
 
 
-DATA_TYPE='cnn_sustag96_wo0'
+DATA_TYPE='cnn_porcupine'
 
 
 # input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/ONT_1d3000masked/train_set/barcode_all_1d3000_ONT_100_1wun.P'
 # input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/train_set/barcode_all_1d3000_sustag96_100_1wun.P'
-input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/train_set/barcode_all_1d3000_sustag96_100_wo0.P'
+# input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq96_1d3000masked_max4000/train_set/barcode_all_1d3000_sustag96_100_wo0.P'
 # input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/seq384_1d1500masked/train_set/barcode_all_1d1500_seq384_100_5wun.P'
+input_pickle_file = r'/data/biolab-nvme-pool1/lijy/SUSTag_data/1d3000/Porcupine_1d3000masked_max4000/train_set/barcode_all_1d3000_porcupine_100_1wun.P'
 
-log_dir = r'/home/lijy/workspace/sustag_orctrl/test/output/sustag96/'
+# log_dir = r'/home/lijy/workspace/sustag_orctrl/test/output/sustag96/'
+log_dir = r'/home/lijy/workspace/sustag_orctrl/test/output/porcupine/'
 
 def plot_heatmap(cm, outpath):    
     custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", ['#003F43', '#2cb8b4', '#003F43'], N=128)
@@ -51,11 +53,13 @@ def plot_heatmap(cm, outpath):
 def test(num_class,batch_size,val_rate, device):
 
     print("load model")
-    model_path = r'/home/lijy/workspace/sustag_orctrl/checkpoints/CNN/'
-    model_name = f"CNN_sustag96_1d3000_masked_ckpt_e40_b1024_0un.pth"
+    # model_path = r'/home/lijy/workspace/sustag_orctrl/checkpoints/CNN/'
+    # model_name = f"CNN_sustag96_1d3000_masked_ckpt_e40_b1024_0un.pth"
+    model_name = r'/home/lijy/workspace/sustag_orctrl/checkpoints/CNN/CNN_Porcupine_1d3000_masked_ckpt_e40_b1024_1wun.pth'
 
     model = CNN_1d(num_class, 0.5).to(device)
-    model.load_state_dict(torch.load(os.path.join(model_path, model_name), map_location=device))
+    # model.load_state_dict(torch.load(os.path.join(model_path, model_name), map_location=device))
+    model.load_state_dict(torch.load(model_name, map_location=device))
 
     print("load data")
     # Get data
@@ -200,7 +204,7 @@ if __name__ == "__main__":
     ################
     # load configs #
     ################
-    num_class = 96
+    num_class = 97
     batch_size = 512
     val_rate = 1.0
 
